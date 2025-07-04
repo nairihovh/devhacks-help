@@ -1,11 +1,31 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const YANDEX_MAP_API_KEY = "57cb3aa2-8d02-4ed0-9b58-e6110859ab27";
+
+// Example clinics
+const clinics = [
+  {
+    name: "💊 Դեղատուն 1",
+    coords: [40.804385, 44.482646],
+    address: "Աբովյան փողոց 12",
+  },
+  {
+    name: "🏥 Կլինիկա 2",
+    coords: [40.812115, 44.490321],
+    address: "Մաշտոց 45",
+  },
+  {
+    name: "🩺 Առողջության Կենտրոն",
+    coords: [40.807200, 44.475000],
+    address: "Հերացի 3",
+  },
+];
 
 const Map = () => {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const mapInitializedRef = useRef(false);
+  const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
     const initMap = () => {
@@ -20,24 +40,28 @@ const Map = () => {
         }
 
         window.ymaps.ready(() => {
-          mapInstanceRef.current = new window.ymaps.Map(mapContainerRef.current, {
+          const map = new window.ymaps.Map(mapContainerRef.current, {
             center: [40.811432, 44.485283],
             zoom: 13,
             controls: [],
           });
 
-          // Example: Pharmacy marker
-          const placemark = new window.ymaps.Placemark(
-            [40.804385, 44.482646],
-            {
-              balloonContent: "💊 Դեղատուն",
-            },
-            {
-              preset: "islands#redIcon",
-            }
-          );
+          // Add placemarks for each clinic
+          clinics.forEach((clinic) => {
+            const placemark = new window.ymaps.Placemark(
+              clinic.coords,
+              {
+                balloonContent: `${clinic.name}<br/>${clinic.address}`,
+              },
+              {
+                preset: "islands#redIcon",
+              }
+            );
+            map.geoObjects.add(placemark);
+          });
 
-          mapInstanceRef.current.geoObjects.add(placemark);
+          mapInstanceRef.current = map;
+          setMapReady(true);
         });
       }
     };
@@ -69,12 +93,41 @@ const Map = () => {
     };
   }, []);
 
+  // Navigate to a clinic
+  const flyToClinic = (coords) => {
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.setCenter(coords, 15, { duration: 300 });
+    }
+  };
+
   return (
     <>
       <h1 className="text-2xl font-bold mb-4">Քարտեզ</h1>
 
-      <div className="w-full max-w-[700px] h-[400px] rounded-3xl shadow-2xl overflow-hidden border-[3px] border-white/20">
+      <div className="w-full max-w-[700px] h-[400px] rounded-3xl shadow-2xl overflow-hidden border-[3px] border-white/20 mb-6">
         <div ref={mapContainerRef} className="w-full h-full" />
+      </div>
+
+      {/* Clinic List */}
+      <div className="w-full max-w-[700px] space-y-4">
+        {clinics.map((clinic, index) => (
+          <div
+            key={index}
+            className="bg-white/10 backdrop-blur-sm p-4 rounded-2xl flex items-center justify-between shadow-md"
+          >
+            <div>
+              <h3 className="text-lg font-semibold">{clinic.name}</h3>
+              <p className="text-sm opacity-80">{clinic.address}</p>
+            </div>
+            <button
+              onClick={() => flyToClinic(clinic.coords)}
+              className="bg-yellow-300 text-[#5C1F0C] font-bold px-4 py-2 rounded-xl hover:bg-yellow-400 transition"
+              disabled={!mapReady}
+            >
+              Տեսնել
+            </button>
+          </div>
+        ))}
       </div>
     </>
   );
