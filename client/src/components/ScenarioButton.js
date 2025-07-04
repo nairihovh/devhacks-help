@@ -15,8 +15,8 @@ const ScenarioButton = ({ to, image, label, bgColor = "bg-yellow-50" }) => {
         />
       </div>
       {label != "" && (
-        <div className="p-2 flex-grow flex items-center justify-center">
-          <span className="text-center text-base font-semibold leading-tight">
+            <div className="p-2 h-[60px] w-full flex items-center justify-center">
+            <span className="text-center text-base font-semibold leading-tight">
             {label}
           </span>
         </div>

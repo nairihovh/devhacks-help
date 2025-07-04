@@ -11,9 +11,9 @@ const Games = () => {
         </div>
             <ScenarioButton
                 to={"/game/bleeding"}
-                label="🩸 Արյունահոսություն"
+                label="🔥 Հրդեհ"
                 bgColor="bg-red-100"
-                image="/images/earthquake-poster.png"
+                image="/images/fire.png"
             />
             <ScenarioButton
                 to={"/game/earthqueake"}
