@@ -1,4 +1,4 @@
-import { FaGamepad, FaHome, FaMap, FaQuestionCircle, FaUser, FaUsers } from "react-icons/fa";
+import { FaGamepad, FaHome, FaMap, FaUser, FaUsers } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
 const BottomNavigation = () => {
@@ -20,10 +20,6 @@ const BottomNavigation = () => {
         <FaGamepad className="text-xl mb-1" />
         Խաղալ
       </Link>
-      {/* <Link to="/quiz" className={`${baseClass} ${isActive("/quiz") ? activeClass : inactiveClass}`}>
-        <FaQuestionCircle className="text-xl mb-1" />
-        Քուիզ
-      </Link> */}
       <Link to="/map" className={`${baseClass} ${isActive("/map") ? activeClass : inactiveClass}`}>
         <FaMap className="text-xl mb-1" />
         Քարտեզ
