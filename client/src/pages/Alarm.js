@@ -21,7 +21,7 @@ const items = [
     },
     {
       image: "/images/drinks.jpg",
-      label: "Խմիչքներ",
+      label: "Ըմպելիքներ",
       contents: [
         { name: "Ջուր", available: true },
         { name: "Հյութ", available: false },
@@ -60,22 +60,22 @@ const Alarm = () => {
             <h2 className="text-xl font-bold mb-4">{selected.label}</h2>
 
             <ul className="space-y-2 mb-4">
-                {selected.contents.map((item, idx) => (
-                    <li
-                    key={idx}
-                    className="relative group flex justify-between items-center bg-white/20 rounded-lg px-3 py-2 hover:bg-white/30 transition"
-                    >
-                    <span>{item.name}</span>
-                    <span className="text-xl">{item.available ? "✅" : "❌"}</span>
-
-                    {/* Tooltip */}
-                    {item.description && (
-                        <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs text-sm bg-[#c48976] text-white px-3 py-2 rounded-lg opacity-0 group-active:opacity-100 transition pointer-events-none z-50 shadow-lg">
-                            {item.description}
-                        </div>
-                    )}
-                    </li>
-                ))}
+              {selected.contents.map((item, idx) => (
+                <li
+                  key={idx}
+                  className={`relative group flex justify-between items-center px-3 py-2 rounded-lg transition
+                    ${item.available
+                      ? "bg-black/30 hover:bg-black/40 text-green"
+                      : "bg-black/10 text-black-400 line-through cursor-not-allowed"}`}
+                >
+                  {item.description && (
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs text-sm bg-[#c48976] text-white px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition pointer-events-none z-50 shadow-lg">
+                      {item.description}
+                    </div>
+                  )}
+                  <span className="text-sm">{item.name}</span>
+                </li>
+              ))}
             </ul>
 
             <button
