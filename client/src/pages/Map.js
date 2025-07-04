@@ -45,6 +45,7 @@ const Map = () => {
     const initMap = () => {
       if (mapInitializedRef.current) return;
 
+
       if (window.ymaps && mapContainerRef.current) {
         mapInitializedRef.current = true;
 
@@ -84,7 +85,7 @@ const Map = () => {
 
     const existingScript = document.querySelector(`script[src*="api-maps.yandex.ru"]`);
 
-    if (window.ymaps) {
+    if (!mapInitializedRef.current && window.ymaps && mapContainerRef.current) {
       initMap();
     } else if (!existingScript) {
       const script = document.createElement("script");
@@ -104,10 +105,10 @@ const Map = () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.destroy();
         mapInstanceRef.current = null;
+        mapInitializedRef.current = false;
       }
-      mapInitializedRef.current = false;
     };
-  }, [mapInstanceRef.current]);
+  }, []);
 
   // Navigate to a clinic
   const flyToClinic = (coords) => {
