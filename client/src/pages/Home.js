@@ -1,9 +1,12 @@
-const Home = () => {
-    return (
-        <>
-            Home
-        </>
-    )
-}
+// src/components/Header.jsx
+import useTelegram from "../hooks/useTelegram";
 
-export default Home;
+const Header = () => {
+  const { tgUser } = useTelegram();
+
+  return (
+    <></>
+  );
+};
+
+export default Header;
