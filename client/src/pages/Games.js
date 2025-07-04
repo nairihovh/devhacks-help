@@ -13,11 +13,13 @@ const Games = () => {
                 to={"/game/bleeding"}
                 label="🩸 Արյունահոսություն"
                 bgColor="bg-red-100"
+                image="/images/earthquake-poster.png"
             />
             <ScenarioButton
                 to={"/game/earthqueake"}
                 label="🌍 Երկրաշարժ"
                 bgColor="bg-red-100"
+                image="/images/earthquake-poster.png"
             />
 
             {/* <Link to="/game/bleeding" className="w-[160px] h-[200px] bg-red-100 text-[#5C1F0C] rounded-2xl shadow-xl hover:scale-105 transition-all duration-300 flex flex-col items-center p-4">

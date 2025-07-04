@@ -8,6 +8,8 @@ import Team from './Friends.js';
 import Header from '../components/Header.js';
 import Games from './Games.js';
 import Game from './Game.js';
+import Alarm from './Alarm.js';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Main = () => {
   return (
@@ -18,14 +20,17 @@ const Main = () => {
       <div className="pt-[100px] pb-[100px] min-h-screen bg-gradient-to-br from-[#a63c07] via-[#469992] to-[#a63c07] 
         bg-[length:200%_200%] animate-gradient-x text-white font-sans px-4">
         <div className="max-w-screen-md mx-auto">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/games" element={<Games />} />
-            <Route path="/game/:gameName" element={<Game />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/team" element={<Team />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/alarm" element={<Alarm />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="/games" element={<Games />} />
+              <Route path="/game/:gameName" element={<Game />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/team" element={<Team />} />
+            </Routes>
+          </AnimatePresence>
         </div>
       </div>
       <BottomNavigation />
@@ -35,3 +40,15 @@ const Main = () => {
 };
 
 export default Main;
+
+const PageWrapper = ({ children }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -50 }}
+    transition={{ duration: 0.5 }}
+    className="min-h-screen"
+  >
+    {children}
+  </motion.div>
+);

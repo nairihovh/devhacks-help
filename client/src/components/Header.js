@@ -11,12 +11,13 @@ const Header = () => {
       flex justify-around py-3 px-6 rounded-b-3xl shadow-[0_-8px_20px_rgba(0,0,0,0.4)] backdrop-blur-md">
             {/* Logo (left) */}
             <div className="flex items-center gap-2">
+                <span className="text-xl font-bold text-white font-soul">Study</span>
                 <img
                 src="/images/logo.png"
                 alt="Logo"
-                className="w-14 h-14 object-contain rounded-full"
+                className="w-14 h-14 object-contain"
                 />
-                <span className="text-xl font-bold text-white font-soul">Study Survive</span>
+                <span className="text-xl font-bold text-white font-soul">Survive</span>
             </div>
 
             {/* User name (right) */}
