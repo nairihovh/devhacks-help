@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import BottomNavigation from '../components/BottomNavigation.js';
 import Home from "./Home.js"
+import Map from "./Map.js"
 
 const Main = () => {
   return (
@@ -9,7 +10,7 @@ const Main = () => {
     <div className="min-h-screen bg-gradient-to-br from-[#7A2F0D] via-[#A84718] to-[#01332F] text-white font-sans p-6 flex flex-col items-center">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Map" element={<Home />} />
+        <Route path="/Map" element={<Map />} />
       </Routes>
       <BottomNavigation />
     </div>
