@@ -54,7 +54,10 @@ const Map = () => {
                 balloonContent: `${clinic.name}<br/>${clinic.address}`,
               },
               {
-                preset: "islands#redIcon",
+                iconLayout: 'default#image',
+                iconImageHref: '/images/logo-mark.png',
+                iconImageSize: [40, 40],
+                iconImageOffset: [-20, -40],
               }
             );
             map.geoObjects.add(placemark);
