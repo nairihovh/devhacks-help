@@ -21,7 +21,6 @@ const clinics = [
     name: "🩺 Նոր մեդ",
     coords: [40.808628, 44.486626],
   },
-  ,
   {
     name: "🩺 Վարդանանց բժշկական կենտրոն",
     coords: [40.810000, 44.493656],
@@ -66,7 +65,7 @@ const Map = () => {
             const placemark = new window.ymaps.Placemark(
               clinic.coords,
               {
-                balloonContent: `${clinic.name}<br/>${clinic.address}`,
+                balloonContent: `${clinic.name}`,
               },
               {
                 iconLayout: 'default#image',
@@ -77,7 +76,6 @@ const Map = () => {
             );
             map.geoObjects.add(placemark);
           });
-
           mapInstanceRef.current = map;
           setMapReady(true);
         });
@@ -109,24 +107,28 @@ const Map = () => {
       }
       mapInitializedRef.current = false;
     };
-  }, []);
+  }, [mapInstanceRef.current]);
 
   // Navigate to a clinic
   const flyToClinic = (coords) => {
     if (mapInstanceRef.current) {
-      mapInstanceRef.current.setCenter(coords, 15, { duration: 300 });
+      console.log(coords)
+      mapInstanceRef.current.setCenter(coords, 20, { duration: 300 });
     }
   };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Քարտեզ</h1>
-
       <div className="w-full max-w-[700px] h-[400px] rounded-3xl shadow-2xl overflow-hidden border-[3px] border-white/20 mb-6">
-        <div ref={mapContainerRef} className="w-full h-full" />
+        <div ref={mapContainerRef} className="w-full h-[500px]" />
       </div>
 
-      {/* Clinic List */}
       <div className="w-full max-w-[700px] space-y-4">
         {clinics.map((clinic, index) => (
           <div
@@ -138,7 +140,10 @@ const Map = () => {
               <p className="text-sm opacity-80">{clinic.address}</p>
             </div>
             <button
-              onClick={() => flyToClinic(clinic.coords)}
+              onClick={() => {
+                flyToClinic(clinic.coords)
+                scrollToTop();
+              }}
               className="bg-yellow-300 text-[#5C1F0C] font-bold px-4 py-2 rounded-xl hover:bg-yellow-400 transition"
               disabled={!mapReady}
             >

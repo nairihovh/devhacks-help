@@ -14,22 +14,22 @@ const Header = () => {
                 <img
                 src="/images/logo.png"
                 alt="Logo"
-                className="w-10 h-10 object-contain rounded-full"
+                className="w-14 h-14 object-contain rounded-full"
                 />
-                <span className="text-xl font-bold">Study Survive</span>
+                <span className="text-xl font-bold text-white font-soul">Study Survive</span>
             </div>
 
             {/* User name (right) */}
-            {tgUser && (
-                <div className="flex items-center gap-2">
-                <span className="text-sm">{tgUser.first_name}</span>
-                <img
+            {/* {tgUser && ( */}
+                {/* <div className="flex items-center gap-2"> */}
+                {/* <span className="text-sm text-white">{tgUser.first_name}</span> */}
+                {/* <img
                     src={tgUser.photo_url}
                     alt="User"
                     className="w-8 h-8 rounded-full border-2 border-white"
                 />
-                </div>
-            )}
+                </div> */}
+            {/* )} */}
         </header>
     )
 }

@@ -7,6 +7,9 @@ module.exports = {
       animation: {
         'gradient-x': 'gradient-x 6s ease infinite',
       },
+      fontFamily: {
+        soul: ['"SoulDaisy"', 'sans-serif'],
+      },
       keyframes: {
         'gradient-x': {
           '0%, 100%': {
@@ -22,5 +25,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }

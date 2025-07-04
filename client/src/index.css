@@ -5,3 +5,33 @@
 * {
     user-select: none;
 }
+
+@font-face {
+    font-family: 'SoulDaisy';
+    src: url('../public/fonts/SoulDaisy.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes popSticker {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-sticker {
+  animation: popSticker 0.5s ease-out;
+}
