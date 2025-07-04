@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "preinstall": "echo installing with legacy peer deps",
-    "install": "npm install --legacy-peer-deps",
+    "install": "npm install --legacy-peer-deps"
   },
   "eslintConfig": {
     "extends": [
