@@ -29,10 +29,21 @@ const Home = () => {
   }
     const [user, setUser] = useState(null)
     const getCurrentUser = async () => {
-      const res = await getUser(tgUser?.id);
-      setLoading(false);
-      if (res) setUser(res);
-    }
+      try {
+        const res = await getUser(tgUser?.id);
+        if (res) {
+          setUser(res);
+        } else {
+          setUser(null); // Make sure it's explicitly null
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false); // Always set loading to false
+      }
+    };
+    
     useEffect(() => {
       if (!tgUser?.id) return;
       getCurrentUser();
