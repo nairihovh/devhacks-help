@@ -74,14 +74,14 @@ const ItemPage = () => {
           <div
             key={i}
             onClick={() => {
-                if (!user?.emergency_items.includes(it.name)) {
+                if (!user?.emergency_items?.includes(it.name)) {
                     handleBuy(it)
                 }
             }}
             className="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow hover:scale-105 transition cursor-pointer"
           >
             <div className="absolute top-1 right-1 bg-yellow-400 text-[#5C1F0C] font-bold text-xs px-2 py-1 rounded-full shadow-md ring-2 ring-white/60">
-                {user?.emergency_items.includes(it.name) ? 
+                {user?.emergency_items?.includes(it.name) ? 
                 <span className="inline-flex items-center gap-1 text-green-600 font-semibold">
                     ✅
                 </span>
