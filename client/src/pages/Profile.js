@@ -30,16 +30,17 @@ const Profile = () => {
       if (tgUser?.id) {
         getCurrentUser();
       } else {
-        setLoading(false); // If no tgUser, stop loading too
+        setLoading(false);
       }
     }, [tgUser]);
     return (
       <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-sm text-center">
         {/* <h2 className="text-3xl font-bold text-[#5C1F0C] mb-4">Բարի Գալու՜ստ</h2> */}
     
-        {loading ? (
+        {/* {loading ? (
           <p className="text-gray-600 text-center">Բեռնում է...</p>
-        ) : user ? (
+        ) :  */}
+        {user ? (
           <div className="text-center">
             <img
               src={user.photo_url}
@@ -55,7 +56,7 @@ const Profile = () => {
               <div
                 className="bg-yellow-300 h-full transition-all duration-500 ease-in-out"
                 style={{
-                  width: `${(user.xp % 1000) / 10}%`, // Assuming level every 1000 XP
+                  width: `${(user.xp % 1000) / 10}%`,
                 }}
               />
               <div className="absolute inset-0 flex items-center justify-center text-[#5C1F0C] font-bold text-sm">
