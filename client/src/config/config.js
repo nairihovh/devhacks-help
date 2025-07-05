@@ -1,1 +1,1 @@
-export const API_URL = "http://localhost:51"
+export const API_URL = "https://artagers.design:66"
