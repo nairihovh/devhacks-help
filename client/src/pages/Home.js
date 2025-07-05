@@ -37,14 +37,16 @@ const Home = () => {
       if (!tgUser?.id) return;
       getCurrentUser();
     }, [tgUser])
-    if (loading) {
-      return (
-        <p className="text-gray-600 text-center">Բեռնում է...</p>
-      )
-    }
+    // if (loading) {
+    //   return (
+        
+    //   )
+    // }
     return (
       <>
-        {!user ? (
+        {loading ? (
+          <p className="text-gray-600 text-center">Բեռնում է...</p>
+        ) : !user ? (
           <div
           className="max-w-md mx-auto mt-6 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-lg text-[#5C1F0C]"
           >
