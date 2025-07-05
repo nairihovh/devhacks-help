@@ -29,22 +29,38 @@ const Home = () => {
   }
     const [user, setUser] = useState(null)
     const getCurrentUser = async () => {
-      const res = await getUser(tgUser?.id);
-      if (res) setUser(res);
-      setLoading(false);
-    }
+      try {
+        const res = await getUser(tgUser?.id);
+        if (res) {
+          setUser(res);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
     useEffect(() => {
-      if (!tgUser?.id) return;
-      getCurrentUser();
-    }, [tgUser])
-    if (loading) {
-      return (
-        <p className="text-gray-600 text-center">Բեռնում է...</p>
-      )
-    }
+      if (tgUser?.id) {
+        getCurrentUser();
+      } else {
+        setLoading(false); // If no tgUser, stop loading too
+      }
+    }, [tgUser]);
+    // if (loading) {
+    //   return (
+        
+    //   )
+    // }
     return (
       <>
-        {!user ? (
+        {loading ? (
+          <p className="text-gray-600 text-center">Բեռնում է...</p>
+        ) : !user ? (
           <div
           className="max-w-md mx-auto mt-6 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-lg text-[#5C1F0C]"
           >

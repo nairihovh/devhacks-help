@@ -83,6 +83,18 @@ export async function getTopUsers (req, res) {
   }
 }
 
+export async function getEmergencyItems (req, res) {
+  try {
+    const items = await db.getEmergencyItems();
+    if (!items) {
+      return res.status(400).json({error: "User not found"})
+    }
+    return res.status(200).json(items);
+  } catch (error) {
+    return null
+  }
+}
+
 export async function getTeamMembers (req, res) {
   try {
     const userId = req?.query?.userId;
