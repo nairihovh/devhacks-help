@@ -14,6 +14,7 @@ export const saveTelegramUser = async (telegramUser, data) => {
     completed_scenarios: [],
     data: data,
     team: null,
+    emergency_items: []
   }, { merge: true });
 };
 
@@ -34,6 +35,61 @@ export const getTopUsers = async (count = 10) => {
     return null;
   }
 };
+
+export const getEmergencyItems = async () => {
+  try {
+    const itemsRef = collection(db, "emergency_items");
+    const querySnapshot = await getDocs(itemsRef);
+
+    const items = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    return items;
+  } catch (error) {
+    console.error("Error fetching emergency items:", error);
+    return null;
+  }
+};
+
+export const addXP = async (userId) => {
+  const userRef = doc(db, "users", userId.toString());
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) {
+    return null;
+  }
+  const userData = userSnap.data();
+  await setDoc(userRef, {
+    xp: userData.xp + 5,
+  }, { merge: true });
+}
+
+export const buyEmergencyItem = async (itemName, userId) => {
+  const userRef = doc(db, "users", userId.toString());
+  const userSnap = await getDoc(userRef);
+  if (!userSnap.exists()) {
+    return null;
+  }
+  const userData = userSnap.data();
+  const items = await getEmergencyItems();
+  if (!items) return { status: 404, data: "Items not found"};
+  const currentItem = items
+    .flatMap(group => group.contents)
+    .find(item => item.name === itemName);
+  if (!currentItem) return { status: 404, data: "Item with that name not found"};
+  if (currentItem?.price >= userData.xp) return { status: 400, data: "You have not such balance to buy this item"};
+  const newItems = [
+    ...(userData?.emergency_items || []),
+    currentItem.name
+  ];
+  
+  await setDoc(userRef, {
+    emergency_items: newItems,
+    xp: userData.xp - currentItem.price
+  }, { merge: true });
+  return { status: 200, data: "Buyed successfully"}
+}
 
 export const createTeam = async (teamName, userId) => {
   const userRef = doc(db, "users", userId.toString());

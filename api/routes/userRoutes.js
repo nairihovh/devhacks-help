@@ -5,7 +5,9 @@ import {
     createTeam,
     getTeamMembers,
     getTopUsers,
-    addXP
+    addXP,
+    getEmergencyItems,
+    buyEmergencyItem
 } from '../controllers/userControllers.js';
 
 const userRoutes = express.Router();
@@ -16,5 +18,7 @@ userRoutes.post('/addXP', addXP);
 userRoutes.post('/createTeam', createTeam);
 userRoutes.get('/getTopUsers', getTopUsers);
 userRoutes.get('/getTeamMembers', getTeamMembers);
+userRoutes.get('/getEmergencyItems', getEmergencyItems);
+userRoutes.post('/buyEmergencyItem', buyEmergencyItem);
 
 export default userRoutes;

@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_URL } from "../config/config";
+import useTelegram from "../hooks/useTelegram";
+import axios from "axios";
 
 const gameContent = {
   earthqueake: {
@@ -36,6 +39,7 @@ const Game = () => {
   const [assetsLoaded, setAssetsLoaded] = useState(false);
   const [loadedVideos, setLoadedVideos] = useState(0);
   const [loadedSounds, setLoadedSounds] = useState(false);
+  const { tgUser } = useTelegram();
 
 
   const [imageIndex, setImageIndex] = useState(0);
@@ -71,20 +75,29 @@ const Game = () => {
     }
   }, [loadedVideos, loadedSounds, gameImages.length]);
   
+  const addXP = async () => {
+    try {
+      await axios.post(`${API_URL}/api/user/addXP`, {
+        userId: tgUser?.id
+      })
+    } catch (error) {
+      
+    }
+  }
 
-  const handleAnswer = (index) => {
+  const handleAnswer = async (index) => {
     setSelectedAnswer(index);
     const isCorrect = index === quiz[currentQuestion].correct;
     if (isCorrect) {
       setScore((prev) => prev + 1);
       const correctSound = new Audio("/sounds/success.mp3");
       correctSound.play();
+      await addXP();
     }else {
       const correctSound = new Audio("/sounds/wrong.mp3");
       correctSound.play();
     }
     setAnswerStatus(isCorrect);
-  
     setTimeout(() => {
       setAnswerStatus(null);
       setSelectedAnswer(null);

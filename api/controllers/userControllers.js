@@ -95,6 +95,19 @@ export async function getEmergencyItems (req, res) {
   }
 }
 
+export async function buyEmergencyItem (req, res) {
+  try {
+    const { itemName, userId } = req?.body
+    if (!itemName || !userId) return res.status(400).json({success : false, message : "itemName or userId is not specified"});
+    
+    const result = await db.buyEmergencyItem(itemName, userId);
+    return res.status(result.status).json(result.data);
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
 export async function getTeamMembers (req, res) {
   try {
     const userId = req?.query?.userId;
