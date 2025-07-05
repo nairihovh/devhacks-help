@@ -65,8 +65,8 @@ const Alarm = () => {
                   key={idx}
                   className={`relative group flex justify-between items-center px-3 py-2 rounded-lg transition
                     ${item.available
-                      ? "bg-black/30 hover:bg-black/40 text-green"
-                      : "bg-black/10 text-black-400 line-through cursor-not-allowed"}`}
+                      ? "bg-black/30 hover:bg-black/40 text-green line-through"
+                      : "bg-black/10 text-black-400 cursor-not-allowed"}`}
                 >
                   {item.description && (
                     <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs text-sm bg-[#c48976] text-white px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition pointer-events-none z-50 shadow-lg">

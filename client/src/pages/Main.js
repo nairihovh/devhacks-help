@@ -9,6 +9,7 @@ import Header from '../components/Header.js';
 import Games from './Games.js';
 import Game from './Game.js';
 import Alarm from './Alarm.js';
+import Calculator_of_surival from './Calculator.js';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const Main = () => {
@@ -23,6 +24,7 @@ const Main = () => {
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/calculator_of_survival" element={<Calculator_of_surival />} />
               <Route path="/alarm" element={<Alarm />} />
               <Route path="/map" element={<Map />} />
               <Route path="/games" element={<Games />} />
