@@ -112,7 +112,6 @@ const Map = () => {
   // Navigate to a clinic
   const flyToClinic = (coords) => {
     if (mapInstanceRef.current) {
-      console.log(coords)
       mapInstanceRef.current.setCenter(coords, 20, { duration: 300 });
     }
   };

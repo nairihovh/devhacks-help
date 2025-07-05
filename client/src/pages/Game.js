@@ -39,7 +39,6 @@ const Game = () => {
 
 
   const [imageIndex, setImageIndex] = useState(0);
-  console.log(content)
   const [showQuiz, setShowQuiz] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -78,8 +77,6 @@ const Game = () => {
     const isCorrect = index === quiz[currentQuestion].correct;
     if (isCorrect) {
       setScore((prev) => prev + 1);
-      
-      // Play sound
       const correctSound = new Audio("/sounds/success.mp3");
       correctSound.play();
     }else {
@@ -134,7 +131,6 @@ const Game = () => {
               onEnded={handleNextVideo}
               onLoadedData={() => {
                 setLoadedVideos((prev) => prev + 1)
-                console.log('loaded video')
               }}
               className="w-full h-[300px] object-cover"
             />
