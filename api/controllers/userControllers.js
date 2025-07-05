@@ -38,7 +38,6 @@ export async function createTeam(req, res) {
 
     const team = await db.getTeam(teamName);
     if (team) {
-      console.log(team)
       return res.status(400).json({success: false, message: "Team with that name already exists"});
     }
 
@@ -72,6 +71,18 @@ export async function getUserById (req, res) {
   }
 }
 
+export async function getTopUsers (req, res) {
+  try {
+    const users = await db.getTopUsers();
+    if (!users) {
+      return res.status(400).json({error: "User not found"})
+    }
+    return res.status(200).json(users);
+  } catch (error) {
+    return null
+  }
+}
+
 export async function getTeamMembers (req, res) {
   try {
     const userId = req?.query?.userId;
@@ -81,6 +92,23 @@ export async function getTeamMembers (req, res) {
     }
 
     const teamMembers = await db.getTeamMembers(userId);
+    if (!teamMembers) {
+      return res.status(400).json({error: "teamMembers not found"})
+    }
+    return res.status(200).json(teamMembers);
+  } catch (error) {
+  }
+}
+
+export async function addXP (req, res) {
+  try {
+    const userId = req?.body?.userId;
+    
+    if (!userId) {
+      return res.status(400).json({error: "userId is not specified"})
+    }
+
+    const teamMembers = await db.addXP(userId);
     if (!teamMembers) {
       return res.status(400).json({error: "teamMembers not found"})
     }

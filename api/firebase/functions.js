@@ -1,5 +1,5 @@
 import { db } from "../firebase.js";
-import { doc, setDoc, updateDoc, getDoc, collection, getDocs, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, updateDoc, getDoc, collection, getDocs, arrayUnion, query, orderBy, limit } from "firebase/firestore";
 
 export const saveTelegramUser = async (telegramUser, data) => {
   await setDoc(doc(db, "users", telegramUser.id.toString()), {
@@ -15,6 +15,24 @@ export const saveTelegramUser = async (telegramUser, data) => {
     data: data,
     team: null,
   }, { merge: true });
+};
+
+export const getTopUsers = async (count = 10) => {
+  try {
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, orderBy("xp", "desc"), limit(count));
+    const querySnapshot = await getDocs(q);
+    
+    const topUsers = [];
+    querySnapshot.forEach((doc) => {
+      topUsers.push(doc.data());
+    });
+
+    return {topUsers};
+  } catch (error) {
+    console.error("Error fetching top users:", error);
+    return null;
+  }
 };
 
 export const createTeam = async (teamName, userId) => {
@@ -62,10 +80,8 @@ export const getTeamMembers = async (userId) => {
   const users = [];
   for (const member of teamSnap.data().members) {
     const member_data = await getUserById(member);
-    console.log(member_data)
     users.push(member_data)
   }
-  console.log(users)
   return {users};
 };
 
