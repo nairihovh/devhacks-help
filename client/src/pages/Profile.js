@@ -19,7 +19,7 @@ const Profile = () => {
     }, [tgUser])
     return (
       <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-sm text-center">
-        <h2 className="text-3xl font-bold text-[#5C1F0C] mb-4">Բարի Գալու՜ստ</h2>
+        {/* <h2 className="text-3xl font-bold text-[#5C1F0C] mb-4">Բարի Գալու՜ստ</h2> */}
     
         {user ? (
           <div className="text-center">
@@ -47,11 +47,26 @@ const Profile = () => {
             <p className="text-sm text-[#5C1F0C] opacity-70 mb-4">
               Level {Math.floor(user.xp / 1000) + 1}
             </p>
+            
+            <div className="flex flex-row gap-4 mt-4 justify-between">
+              <ScenarioButton
+                to="/alarm"
+                cover={true}
+                label="Տագնապի պայուսակ"
+                image="/images/tagnap-bag.png"
+              />
+              <ScenarioButton
+                // cover={true}
+                label="Գոյատեւման հաշվիչ"
+                to="/Calculator_of_survival"
+                image="/images/calculator.png"
+              />
+            </div>
             <button
               onClick={() => setShowAdditionalInformation(!showAdditionalInformation)}
-              className="mb-3 bg-yellow-300 hover:bg-yellow-400 text-[#5C1F0C] font-bold px-6 py-3 rounded-xl shadow-md transition-all duration-300"
+              className="mb-3 mt-[20px] bg-yellow-300 hover:bg-yellow-400 text-[#5C1F0C] font-bold px-6 py-3 rounded-xl shadow-md transition-all duration-300"
             >
-              {showAdditionalInformation ? "Փակել հավելյալ ինֆորմացիան" : "Հավելյալ ինֆորմացիա"}
+              {showAdditionalInformation ? "Փակել" : "Անձնական տվյալներ"}
             </button>
             {showAdditionalInformation && (
               <div className="text-left space-y-2 text-[#5C1F0C] text-sm font-medium transiotion-1s">
@@ -63,7 +78,7 @@ const Profile = () => {
             )}
           </div>
         ) : (
-          <p className="text-gray-600 text-center">Loading user info...</p>
+          <p className="text-gray-600 text-center">Բեռնում է...</p>
         )}
       </div>
     );    

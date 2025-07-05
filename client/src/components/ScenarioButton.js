@@ -1,7 +1,7 @@
 // src/components/ScenarioButton.jsx
 import { Link } from "react-router-dom";
 
-const ScenarioButton = ({ to, image, label, bgColor = "bg-yellow-50" }) => {
+const ScenarioButton = ({ cover=false, to, image, label, bgColor = "bg-yellow-50", setBorder = false }) => {
   return (
     <Link
       to={to}
@@ -11,7 +11,7 @@ const ScenarioButton = ({ to, image, label, bgColor = "bg-yellow-50" }) => {
         <img
           src={image}
           alt={label}
-          className="w-full h-full object-cover rounded-t-2xl"
+          className={`w-full h-full ${cover ? "object-cover" : ""} rounded-t-2xl ${setBorder ? "border-4 border-white" : ""}`}
         />
       </div>
       {label != "" && (

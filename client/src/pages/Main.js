@@ -11,6 +11,7 @@ import Game from './Game.js';
 import Alarm from './Alarm.js';
 import Calculator_of_surival from './Calculator.js';
 import { AnimatePresence, motion } from 'framer-motion';
+import ItemPage from './ItemPage.js';
 
 const Main = () => {
   return (
@@ -23,13 +24,14 @@ const Main = () => {
         <div className="max-w-screen-md mx-auto">
           <AnimatePresence mode="wait">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Profile />} />
               <Route path="/calculator_of_survival" element={<Calculator_of_surival />} />
               <Route path="/alarm" element={<Alarm />} />
+              <Route path="/alarm/:name" element={<ItemPage />} />
               <Route path="/map" element={<Map />} />
               <Route path="/games" element={<Games />} />
               <Route path="/game/:gameName" element={<Game />} />
-              <Route path="/profile" element={<Profile />} />
+              {/* <Route path="/profile" element={<Profile />} /> */}
               <Route path="/team" element={<Team />} />
             </Routes>
           </AnimatePresence>

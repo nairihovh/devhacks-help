@@ -11,6 +11,7 @@ const Home = () => {
   const { tgUser } = useTelegram();
   const [data, setData] = useState({});
   const [registeredStatus, setRegisteredStatus] = useState();
+  const [loading, setLoading] = useState(true);
   const registerUser = async () => {
     try {
       await axios.post(`${API_URL}/api/user/register`, {
@@ -30,26 +31,34 @@ const Home = () => {
     const getCurrentUser = async () => {
       const res = await getUser(tgUser?.id);
       if (res) setUser(res);
+      setLoading(false);
     }
     useEffect(() => {
       if (!tgUser?.id) return;
       getCurrentUser();
     }, [tgUser])
-
+    if (loading) {
+      return (
+        <p className="text-gray-600 text-center">Բեռնում է...</p>
+      )
+    }
     return (
       <>
         {!user ? (
-          <div className="max-w-md mx-auto mt-6 bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg text-[#5C1F0C]">
+          <div
+          className="max-w-md mx-auto mt-6 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-lg text-[#5C1F0C]"
+          >
             <h2 className="text-2xl font-bold text-center mb-4">Ձեր տվյալները</h2>
             
             <div className="space-y-4">
               <div>
-                <label className="block mb-1 font-semibold">Անուն (Telegram-ից)</label>
+                {/* <label for="name" className="block mb-1 font-semibold">Անուն (Telegram-ից)</label> */}
                 <input
                   type="text"
                   name="name"
+                  id="name"
                   defaultValue={tgUser?.first_name}
-                  className="w-full p-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none"
+                  className="w-full p-2 rounded-lg bg-white/80 text-gray placeholder-gray focus:outline-none"
                   placeholder="Անուն"
                   onChange={(e) =>
                     setData((prev) => ({
@@ -62,10 +71,11 @@ const Home = () => {
     
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1 font-semibold">Տարիք</label>
+                  {/* <label for="age" className="block mb-1 font-semibold">Տարիք</label> */}
                   <input
                     type="number"
-                    className="w-full p-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none"
+                    id="age"
+                    className="w-full p-2 rounded-lg bg-white/80 text-gray placeholder-gray focus:outline-none"
                     placeholder="Տարիք"
                     name="age"
                     onChange={(e) =>
@@ -77,10 +87,11 @@ const Home = () => {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1 font-semibold">Քաշ (կգ)</label>
+                  {/* <label for="weight" className="block mb-1 font-semibold">Քաշ (կգ)</label> */}
                   <input
                     type="number"
-                    className="w-full p-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none"
+                    id="weight"
+                    className="w-full p-2 rounded-lg bg-white/80 text-gray placeholder-gray focus:outline-none"
                     placeholder="Քաշ"
                     name="weight"
                     onChange={(e) =>
@@ -95,10 +106,11 @@ const Home = () => {
     
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-1 font-semibold">Հասակ (սմ)</label>
+                  {/* <label for="height" className="block mb-1 font-semibold">Հասակ (սմ)</label> */}
                   <input
                     type="number"
-                    className="w-full p-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none"
+                    id="height"
+                    className="w-full p-2 rounded-lg bg-white/80 text-gray placeholder-gray focus:outline-none"
                     placeholder="Հասակ"
                     name="height"
                     onChange={(e) =>
@@ -110,10 +122,11 @@ const Home = () => {
                   />
                 </div>
                 <div>
-                  <label className="block mb-1 font-semibold">Քաղաք</label>
+                  {/* <label for="city" className="block mb-1 font-semibold">Քաղաք</label> */}
                   <input
                     type="text"
-                    className="w-full p-2 rounded-lg bg-white/20 text-white placeholder-white/50 focus:outline-none"
+                    id="city"
+                    className="w-full p-2 rounded-lg bg-white/80 text-gray placeholder-gray focus:outline-none"
                     placeholder="Քաղաք"
                     name="city"
                     onChange={(e) =>
@@ -136,10 +149,7 @@ const Home = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-row gap-4 mt-6 justify-center flex-wrap">
-            <ScenarioButton to="/alarm" image="/images/tagnap-bag.png" />
-            <ScenarioButton to="/Calculator_of_survival" image="/images/calculator.png" />
-          </div>
+          <></>
         )}
       </>
     );    

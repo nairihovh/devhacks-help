@@ -1,41 +1,6 @@
 import ScenarioButton from "../components/ScenarioButton";
 import { useState } from "react";
-
-const items = [
-    {
-      image: "/images/self-items.jpg",
-      label: "Անձնական պարագաներ",
-      contents: [
-        { name: "Ատամի խոզանակ", available: true, description: "Օգտագործվում է ատամները մաքրելու համար" },
-        { name: "Անձեռոցիկ", available: false, description: "Դիմային և ձեռքերի մաքրության համար" },
-        { name: "Ձեռնոց", available: true, description: "Ձեռքերը պաշտպանելու համար" },
-      ]
-    },
-    {
-      image: "/images/clothes.jpg",
-      label: "Հագուստ",
-      contents: [
-        { name: "Բաճկոն", available: true, description: "" },
-        { name: "Նախշավոր գուլպա", available: false },
-      ],
-    },
-    {
-      image: "/images/drinks.jpg",
-      label: "Ըմպելիքներ",
-      contents: [
-        { name: "Ջուր", available: true },
-        { name: "Հյութ", available: false },
-      ],
-    },
-    {
-      image: "/images/documents.jpg",
-      label: "Փաստաթղթեր",
-      contents: [
-        { name: "Անձնագիր", available: true },
-        { name: "Սոցիալական քարտ", available: false },
-      ],
-    },
-];
+import { items } from "../db/bag";
 
 
 const Alarm = () => {
@@ -48,13 +13,18 @@ const Alarm = () => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-center">
         {items.map((item, i) => (
           <div key={i} onClick={() => setSelected(item)}>
-            <ScenarioButton image={item.image} label={item.label} />
+            <ScenarioButton
+              setBorder={true}
+              image={item.image}
+              label={item.label}
+              to={`/alarm/${item.label}`}
+            />
           </div>
         ))}
       </div>
 
       {/* Modal */}
-      {selected && (
+      {/* {selected && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white text-[#5C1F0C] p-6 rounded-2xl w-[90%] max-w-md shadow-2xl">
             <h2 className="text-xl font-bold mb-4">{selected.label}</h2>
@@ -64,7 +34,7 @@ const Alarm = () => {
                 <li
                   key={idx}
                   className={`relative group flex justify-between items-center px-3 py-2 rounded-lg transition
-                    ${item.available
+                    ${!item.available
                       ? "bg-black/30 hover:bg-black/40 text-green line-through"
                       : "bg-black/10 text-black-400 cursor-not-allowed"}`}
                 >
@@ -86,7 +56,7 @@ const Alarm = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
