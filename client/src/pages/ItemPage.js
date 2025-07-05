@@ -3,6 +3,8 @@ import { items } from "../db/bag";
 import { useParams } from "react-router-dom";
 import getUser from "../hooks/useUser";
 import useTelegram from "../hooks/useTelegram";
+import axios from "axios";
+import { API_URL } from "../config/config";
 
 const ItemPage = () => {
   const [selected, setSelected] = useState(null);
@@ -27,12 +29,30 @@ const ItemPage = () => {
     setBuyingItem(item);
   };
 
-  const confirmBuy = () => {
-    setAnimateItem(buyingItem);
-    setBuyingItem(null);
-    const correctSound = new Audio("/sounds/buy-item.mp3");
-    correctSound.play();
-    setTimeout(() => setAnimateItem(null), 1000);
+  const buyItem = async () => {
+    try {
+        const res = await axios.post(`${API_URL}/api/user/buyEmergencyItem`, {
+            itemName: buyingItem?.name,
+            userId: tgUser?.id
+        })
+        return res
+    } catch (error) {
+        return null
+    }
+  }
+
+  const confirmBuy = async () => {
+    const res = await buyItem();
+    if (res?.status === 200) {
+        setAnimateItem(buyingItem);
+        setBuyingItem(null);
+        const correctSound = new Audio("/sounds/buy-item.mp3");
+        correctSound.play();
+        setTimeout(() => setAnimateItem(null), 1000);
+        await getCurrentUser();
+    }else {
+        alert("inucent")
+    }
   };
 
   return (
@@ -53,11 +73,19 @@ const ItemPage = () => {
         {item?.contents?.map((it, i) => (
           <div
             key={i}
-            onClick={() => handleBuy(it)}
+            onClick={() => {
+                if (!user?.emergency_items?.includes(it.name)) {
+                    handleBuy(it)
+                }
+            }}
             className="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow hover:scale-105 transition cursor-pointer"
           >
             <div className="absolute top-1 right-1 bg-yellow-400 text-[#5C1F0C] font-bold text-xs px-2 py-1 rounded-full shadow-md ring-2 ring-white/60">
-            {it.price}
+                {user?.emergency_items?.includes(it.name) ? 
+                <span className="inline-flex items-center gap-1 text-green-600 font-semibold">
+                    ✅
+                </span>
+                : it.price}
             </div>
             <img src={it.image} alt={it.name} className="w-full h-28 object-contain p-2" />
             <p className="text-center text-sm font-semibold text-white py-2">{it.name}</p>
@@ -70,7 +98,7 @@ const ItemPage = () => {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-xl shadow-xl text-center space-y-4">
             <img src={buyingItem.image} alt={buyingItem.name} className="w-24 h-24 mx-auto" />
-            <p className="text-lg font-bold">Գնե՞լ {buyingItem.name}</p>
+            <p className="text-lg text-black font-bold">Գնե՞լ {buyingItem.name}</p>
             <div className="flex gap-4 justify-center">
               <button
                 onClick={confirmBuy}

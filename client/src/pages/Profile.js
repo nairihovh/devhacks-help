@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import ScenarioButton from "../components/ScenarioButton";
 import { API_URL } from "../config/config";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
     const { tgUser } = useTelegram();
@@ -48,18 +49,14 @@ const Profile = () => {
     useEffect(() => {
       if (tgUser?.id) {
         getCurrentUser();
-      } else {
-        setLoading(false);
       }
     }, [tgUser]);
     return (
-      <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-sm text-center">
-        {/* <h2 className="text-3xl font-bold text-[#5C1F0C] mb-4">Բարի Գալու՜ստ</h2> */}
+      <div className="bg-white/80 shadow-2xl rounded-2xl p-8 max-w-sm text-center">
     
-        {/* {loading ? (
+        {loading ? (
           <p className="text-gray-600 text-center">Բեռնում է...</p>
-        ) :  */}
-        {user ? (
+        ) : user ? (
           <div className="text-center">
             <img
               src={user.photo_url}
@@ -70,7 +67,6 @@ const Profile = () => {
               {user.name}
             </h3>
     
-            {/* XP Progress Bar */}
             <div className="relative bg-white/30 rounded-full h-6 w-64 mx-auto overflow-hidden shadow-inner mb-2">
               <div
                 className="bg-yellow-300 h-full transition-all duration-500 ease-in-out"
@@ -83,7 +79,7 @@ const Profile = () => {
               </div>
             </div>
             <p className="text-sm text-[#5C1F0C] opacity-70 mb-4">
-              Level {Math.floor(user.xp / 1000) + 1}
+              {Math.floor(user.xp / 1000) + 1} Level
             </p>
             
             <div className="flex flex-row gap-4 mt-4 justify-between">
@@ -94,11 +90,19 @@ const Profile = () => {
                 image="/images/tagnap-bag.png"
               />
               <ScenarioButton
-                // cover={true}
                 label="Գոյատեւման հաշվիչ"
                 to="/Calculator_of_survival"
                 image="/images/calculator.png"
               />
+            </div>
+            <div className="flex flex-row gap-4 mt-4 justify-between">
+            <Link
+              to="/games"
+              className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-yellow-300 to-yellow-200 hover:from-yellow-300 hover:to-yellow-500 transition-all text-[#5C1F0C] font-bold py-4 px-6 rounded-2xl shadow-lg text-lg"
+            >
+              <img src="/images/game.png" alt="Gamepad" className="w-6 h-6" />
+              Խաղալ
+            </Link>
             </div>
             <button
               onClick={() => setShowAdditionalInformation(!showAdditionalInformation)}
@@ -123,7 +127,6 @@ const Profile = () => {
             
             <div className="space-y-4">
               <div>
-                {/* <label for="name" className="block mb-1 font-semibold">Անուն (Telegram-ից)</label> */}
                 <input
                   type="text"
                   name="name"
@@ -142,7 +145,6 @@ const Profile = () => {
     
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  {/* <label for="age" className="block mb-1 font-semibold">Տարիք</label> */}
                   <input
                     type="number"
                     id="age"
@@ -158,7 +160,6 @@ const Profile = () => {
                   />
                 </div>
                 <div>
-                  {/* <label for="weight" className="block mb-1 font-semibold">Քաշ (կգ)</label> */}
                   <input
                     type="number"
                     id="weight"
@@ -177,7 +178,6 @@ const Profile = () => {
     
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  {/* <label for="height" className="block mb-1 font-semibold">Հասակ (սմ)</label> */}
                   <input
                     type="number"
                     id="height"
@@ -193,7 +193,6 @@ const Profile = () => {
                   />
                 </div>
                 <div>
-                  {/* <label for="city" className="block mb-1 font-semibold">Քաղաք</label> */}
                   <input
                     type="text"
                     id="city"
@@ -223,5 +222,4 @@ const Profile = () => {
       </div>
     );    
 }
-
 export default Profile;
