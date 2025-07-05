@@ -3,48 +3,55 @@ import { useState } from "react";
 
 const items = [
     {
-      image: "/images/drinks.jpg",
+      image: "/images/water.png",
       label: "Ջուր",
-      kcal: "",
+      kcal: "0",
     },
     {
       image: "/images/clothes.jpg",
       label: "Snickers",
-      kcal: "",
+      kcal: 250,
     },
     {
       image: "/images/drinks.jpg",
       label: "Խտացրած կաթ",
-      kcal: "",
+      kcal: 1200,
     },
     {
       image: "/images/documents.jpg",
       label: "Սուխարիկ",
+      kcal: 380,
     },
     {
       image: "/images/documents.jpg",
       label: "Պահածոյացված միս",
+      kcal: 800,
     },
     {
       image: "/images/documents.jpg",
       label: "Ընդեղեն",
+      kcal: 650,
     }, 
     {
       image: "/images/documents.jpg",
+      label: "Մեղր",
+      kcal: 330,
+    },
+    {
+      image: "/images/documents.jpg",
+      label: "չիր",
+      kcal: 250,
+    },
+    {
+      image: "/images/documents.jpg",
       label: "Սեւ շոկոլադ",
+      kcal: 550,
     },
     {
       image: "/images/documents.jpg",
       label: "Սալ",
+      kcal: 800,
     }, 
-    {
-      image: "/images/documents.jpg",
-      label: "Սեւ շոկոլադ",
-    }, 
-    {
-      image: "/images/documents.jpg",
-      label: "Սեւ շոկոլադ",
-    },
 ];
 const Alarm = () => {
   const [selectedCounts, setSelectedCounts] = useState({});
