@@ -30,8 +30,8 @@ const Home = () => {
     const [user, setUser] = useState(null)
     const getCurrentUser = async () => {
       const res = await getUser(tgUser?.id);
-      if (res) setUser(res);
       setLoading(false);
+      if (res) setUser(res);
     }
     useEffect(() => {
       if (!tgUser?.id) return;
