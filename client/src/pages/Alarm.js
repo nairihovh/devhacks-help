@@ -11,7 +11,7 @@ const Alarm = () => {
       <h1 className="text-2xl font-bold text-white mb-6 text-center">Տագնապի Պայուսակ</h1>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 justify-center">
-        {items.map((item, i) => (
+        {items?.map((item, i) => (
           <div key={i} onClick={() => setSelected(item)}>
             <ScenarioButton
               setBorder={true}
