@@ -34,20 +34,23 @@ const Home = () => {
         if (res) {
           setUser(res);
         } else {
-          setUser(null); // Make sure it's explicitly null
+          setUser(null);
         }
       } catch (error) {
         console.error("Error fetching user:", error);
         setUser(null);
       } finally {
-        setLoading(false); // Always set loading to false
+        setLoading(false);
       }
     };
     
     useEffect(() => {
-      if (!tgUser?.id) return;
-      getCurrentUser();
-    }, [tgUser])
+      if (tgUser?.id) {
+        getCurrentUser();
+      } else {
+        setLoading(false); // If no tgUser, stop loading too
+      }
+    }, [tgUser]);
     // if (loading) {
     //   return (
         
