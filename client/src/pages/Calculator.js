@@ -80,8 +80,8 @@ if (days * 2 > waterUsed || (days === 0 && waterUsed < 2 && hours != 0)) {
             <div
               key={i}
               onClick={() => handleClick(item.label)}
-              className={`relative p-1 rounded-xl cursor-pointer transform transition-transform hover:scale-105 ${
-                count > 0 ? "ring-4 ring-yellow-400" : ""
+              className={`relative p-1 rounded-xl cursor-pointer transform transition-transform ${
+                count > 0 ? "ring-4 ring-yellow-400 scale-105" : "hover:scale-105"
               }`}
             >
               <ScenarioButton setBorder={true} image={item.image} label={item.label} />
