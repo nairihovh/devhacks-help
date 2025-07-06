@@ -48,28 +48,23 @@ const Alarm = () => {
 
   const waterUsed = selectedCounts["Ջուր"] || 0;
 
-let about_wather = "";
+  let about_wather = "";
 
-if (days * 2 > waterUsed || (days === 0 && waterUsed < 2 && hours != 0)) {
-  about_wather = "Անհրաժեշտ է ջրի քանակը ավելացնել 💧";
-} else {
-  about_wather = "";
-}
+  if (days * 2 > waterUsed || (days === 0 && waterUsed < 2 && hours != 0)) {
+    about_wather = "Անհրաժեշտ է ջրի քանակը ավելացնել 💧";
+  } else {
+    about_wather = "";
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto p-4">
       <h1 className="text-2xl font-bold text-white mb-2 text-center">Գոյատեւման հաշվիչ</h1>
 
-      {/* Display total kcal }
-      <div className="text-cenԿենդանական չորացրած ճարպ text-lg font-semibold text-yellow-300 mb-4">
-        Ընդհանուր կալորիականությունը՝ {totalKcal} կկալ
-      </div>   */}
-
       <div className="text-center text-lg font-semibold text-yellow-300 mb-4 p-4 rounded-2xl shadow-lg bg-black/50 backdrop-blur-sm">
         Պաշարի քանակը կբավականցնի՝ {days} օր, {hours} ժամ
       </div>
 
-      <div className="text-center text-lg font-semibold tVext-yellow-300 mb-4">
+      <div className="text-center text-lg font-semibold text-yellow-300 mb-4">
         {about_wather} 
       </div>
 
@@ -87,13 +82,13 @@ if (days * 2 > waterUsed || (days === 0 && waterUsed < 2 && hours != 0)) {
               <ScenarioButton setBorder={true} image={item.image} label={item.label} />
 
               {count > 0 && (
-                <>
-                  <div className="absolute top-1 right-1 bg-yellow-400 text-black text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                <div className="absolute inset-0">
+                  <div className="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full z-10">
                     {count}
                   </div>
 
                   <button
-                    className="absolute bottom-1 left-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full hover:bg-red-700"
+                    className="absolute -bottom-2 -left-2 bg-red-500 text-white text-xs w-6 h-6 flex items-center justify-center rounded-full hover:bg-red-700 z-10"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleReset(item.label);
@@ -101,7 +96,7 @@ if (days * 2 > waterUsed || (days === 0 && waterUsed < 2 && hours != 0)) {
                   >
                     ✖
                   </button>
-                </>
+                </div>
               )}
             </div>
           );
