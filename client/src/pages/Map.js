@@ -117,14 +117,15 @@ const Map = () => {
       {/* Compass Block that scrolls with page */}
       <div className="w-full max-w-[700px] mx-auto flex items-center justify-between bg-black/50 p-4 rounded-xl shadow-lg mb-6">
         
-        {/* Compass Left Side */}
-        <div
-          className="w-12 h-12 rounded-full border-4 border-yellow-300 flex items-center justify-center bg-black/70 text-white text-xl"
-          style={{ transform: `rotate(${direction}deg)` }}
-        >
-          🧭
-        </div>
+      <div className="w-12 h-12 rounded-full border-4 border-yellow-300 flex items-center justify-center bg-black/70 text-white text-xl"
+        style={{ transform: `rotate(${-direction}deg)` }}
+      >
+        🧭
+      </div>
         
+      <div className="text-white text-lg font-bold">
+        {direction}°
+      </div> 
         {/* Degrees Right Side */}
         <div className="text-white text-lg font-bold">
           {direction}°
