@@ -76,7 +76,7 @@ const Alarm = () => {
               key={i}
               onClick={() => handleClick(item.label)}
               className={`relative p-1 rounded-xl cursor-pointer transform transition-transform ${
-                count > 0 ? "ring-4 ring-yellow-400 scale-105" : "hover:scale-105"
+                count > 0 ? "ring-4 ring-yellow-400 scale-100" : "hover:scale-100"
               }`}
             >
               <ScenarioButton setBorder={true} image={item.image} label={item.label} />
