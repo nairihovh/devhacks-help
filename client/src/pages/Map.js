@@ -130,6 +130,12 @@ const Map = () => {
         <div ref={mapContainerRef} className="w-full h-[500px]" />
       </div>
 
+      <button
+        onClick={() => window.location.href = "tel:103"}
+        className="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition"
+      >
+        Զանգահարել 103
+      </button>
       {/* Կլինիկաների ցուցակ */}
       <div className="w-full max-w-[700px] space-y-4">
         {clinics.map((clinic, index) => (
@@ -153,12 +159,7 @@ const Map = () => {
           </div>
         ))}
       </div>
-      <button
-        onClick={() => window.location.href = "tel:103"}
-        className="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition"
-      >
-        Զանգահարել 103
-      </button>
+      
 
     </>
   );
