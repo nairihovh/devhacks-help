@@ -132,7 +132,7 @@ const Map = () => {
 
       <button
         onClick={() => window.location.href = "tel:103"}
-        className="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition"
+        className="bg-red-500 text-white px-8 py-4 rounded-xl hover:bg-red-600 transition mb-5 w-full max-w-[700px] space-y-4"
       >
         Զանգահարել 103
       </button>
