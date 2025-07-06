@@ -1,5 +1,8 @@
 import ScenarioButton from "../components/ScenarioButton";
 import { useState } from "react";
+import useTelegram from "../hooks/useTelegram";
+import getUser from "../hooks/useUser";
+import { useEffect } from "react";
 
 const items = [
   { image: "/images/water.png", label: "Ջուր", kcal: 0, used: 0 },
@@ -15,6 +18,16 @@ const items = [
 
 const Alarm = () => {
   const [selectedCounts, setSelectedCounts] = useState({});
+  const { tgUser } = useTelegram();
+const [user, setUser] = useState(null);
+const getCurrentUser = async () => {
+    const res = await getUser(tgUser?.id);
+    if (res) setUser(res);
+  };
+  useEffect(() => {
+    if (!tgUser?.id) return;
+    getCurrentUser();
+  }, [tgUser]);
 
   const handleClick = (label) => {
     setSelectedCounts((prev) => ({
@@ -36,9 +49,9 @@ const Alarm = () => {
     return sum + item.kcal * count;
   }, 0);
 
-  const weight = 72;  
-  const height = 175; 
-  const age = 18;     
+  const weight = parseInt(user?.data?.weight);
+  const height = parseInt(user?.data?.height);
+  const age = parseInt(user?.data?.age);
   
   const bmr = 10 * weight + 6.25 * height - 5 * age + 5; 
   
