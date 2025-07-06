@@ -51,6 +51,7 @@ const Map = () => {
             );
             map.geoObjects.add(placemark);
           });
+
           mapInstanceRef.current = map;
           setMapReady(true);
         });
@@ -84,21 +85,15 @@ const Map = () => {
     };
   }, []);
 
-  // Compass Logic
+  // Թարս ուղղությամբ աստիճանների հաշվարկ
   useEffect(() => {
-    const handleOrientation = (event) => {
-      if (event.alpha !== null) {
-        setDirection(Math.round(event.alpha));
-      }
-    };
-
-    window.addEventListener("deviceorientationabsolute", handleOrientation, true);
-    window.addEventListener("deviceorientation", handleOrientation, true);
-
-    return () => {
-      window.removeEventListener("deviceorientationabsolute", handleOrientation);
-      window.removeEventListener("deviceorientation", handleOrientation);
-    };
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener("deviceorientation", (event) => {
+        if (event.alpha != null) {
+          setDirection(360 - Math.round(event.alpha));
+        }
+      }, true);
+    }
   }, []);
 
   const flyToClinic = (coords) => {
@@ -113,31 +108,29 @@ const Map = () => {
 
   return (
     <>
-
-      {/* Compass Block that scrolls with page */}
+      {/* Կոմպաս */}
       <div className="w-full max-w-[700px] mx-auto flex items-center justify-between bg-black/50 p-4 rounded-xl shadow-lg mb-6">
         
-      <div className="w-12 h-12 rounded-full border-4 border-yellow-300 flex items-center justify-center bg-black/70 text-white text-xl"
-        style={{ transform: `rotate(${-direction}deg)` }}
-      >
-        🧭
-      </div>
-        
-      <div className="text-white text-lg font-bold">
-        {direction}°
-      </div> 
-        {/* Degrees Right Side */}
+        {/* Նկարը պտտվում ա */}
+        <div
+          className="w-12 h-12 rounded-full border-4 border-yellow-300 flex items-center justify-center bg-black/70 text-white text-xl"
+          style={{ transform: `rotate(${-direction}deg)` }}
+        >
+          🧭
+        </div>
+
+        {/* Թվերը՝ հակառակ հաշվարկով */}
         <div className="text-white text-lg font-bold">
           {direction}°
         </div>
       </div>
 
-      {/* Map */}
+      {/* Քարտեզ */}
       <div className="w-full max-w-[700px] h-[400px] rounded-3xl shadow-2xl overflow-hidden border-[3px] border-white/20 mb-6">
         <div ref={mapContainerRef} className="w-full h-[500px]" />
       </div>
 
-      {/* Clinics */}
+      {/* Կլինիկաների ցուցակ */}
       <div className="w-full max-w-[700px] space-y-4">
         {clinics.map((clinic, index) => (
           <div
@@ -146,7 +139,6 @@ const Map = () => {
           >
             <div>
               <h3 className="text-lg font-semibold">{clinic.name}</h3>
-              <p className="text-sm opacity-80">{clinic.address}</p>
             </div>
             <button
               onClick={() => {
@@ -166,4 +158,3 @@ const Map = () => {
 };
 
 export default Map;
-
