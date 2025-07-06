@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import BottomNavigation from '../components/BottomNavigation.js';
-import Home from "./Home.js"
 import Map from "./Map.js"
 import Profile from './Profile.js';
 import Team from './Friends.js';

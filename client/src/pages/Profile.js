@@ -15,6 +15,7 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({});
     const [registeredStatus, setRegisteredStatus] = useState();
+    const [showSplash, setShowSplash] = useState(true);
     const registerUser = async () => {
       try {
         await axios.post(`${API_URL}/api/user/register`, {
@@ -31,6 +32,39 @@ const Profile = () => {
       }
     }
 
+    // useEffect(() => {
+    //   const timer = setTimeout(() => {
+    //     const helloSound = new Audio("/sounds/hello.mp3");
+    
+    //     helloSound
+    //       .play()
+    //       .catch((error) => {
+    //         console.warn("Sound play failed:", error);
+    //       });
+    
+    //     setShowSplash(false);
+    //   }, 2000);
+    
+    //   return () => clearTimeout(timer);
+    // }, []);
+
+    useEffect(() => {
+      const helloSound = new Audio("/sounds/hello.mp3");
+    
+      helloSound.play().then(() => {
+        setTimeout(() => {
+          setShowSplash(false);
+        }, 100); // small delay after sound starts
+      }).catch(() => {
+        // fallback: no sound
+        setTimeout(() => {
+          setShowSplash(false);
+        }, 2000); // hide splash after 2s if sound failed
+      });
+    }, []);
+    
+    
+    
     const getCurrentUser = async () => {
       try {
         const res = await getUser(tgUser?.id);
@@ -51,6 +85,17 @@ const Profile = () => {
         getCurrentUser();
       }
     }, [tgUser]);
+    if (showSplash) {
+      return (
+          <div className="fixed inset-0 z-50 bg-white flex items-center justify-center">
+            <img
+              src="/images/splash.png"  // change to your actual splash image path
+              alt="Welcome"
+              className="w-64 h-64 object-contain animate-fade-in"
+            />
+          </div>
+      );
+    }    
     return (
       <div className="bg-white/80 shadow-2xl rounded-2xl p-8 max-w-sm text-center">
     

@@ -12,6 +12,7 @@ const Games = () => {
             <ScenarioButton
                 to={"/game/bleeding"}
                 label="🔥 Հրդեհ"
+                cover={true}
                 bgColor="bg-red-100"
                 image="/images/fire.png"
             />
